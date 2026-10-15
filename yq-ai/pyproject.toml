@@ -1,0 +1,37 @@
+[project]
+name = "yanque-ai"
+version = "0.1.0"
+description = "YanQue AI service"
+readme = "README.md"
+authors = [
+    { name = "huangjin", email = "913038933@qq.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "fastapi>=0.141.1",
+    "langchain>=1.3.15",
+    "langchain-community>=0.4.2",
+    "langchain-core>=1.5.5",
+    "langchain-mcp-adapters>=0.3.2",
+    "langchain-openai>=1.5.1",
+    "langchain-text-splitters>=1.1.2",
+    "llama-index-core>=0.14.23",
+    "llama-index-embeddings-openai>=0.6.0",
+    "llama-index-vector-stores-milvus>=1.1.0",
+    "mcp>=1.29.0",
+    "mineru-open-sdk>=0.2.5",
+    "openai>=1.60",
+    "pymilvus>=2.6.7,<3",
+    "pypdf>=6.16.1",
+    "playwright>=1.55.0",
+    "python-dotenv>=1.0",
+    "uvicorn[standard]>=0.52.1",
+]
+
+[project.scripts]
+yanque-ai = "yanque_ai:main"
+
+[build-system]
+requires = ["uv_build>=0.11.8,<0.12.0"]
+build-backend = "uv_build"

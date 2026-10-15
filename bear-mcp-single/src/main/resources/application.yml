@@ -1,0 +1,80 @@
+server:
+  port: ${SERVER_PORT:8090}
+
+spring:
+  application:
+    name: insighthub-ai-platform
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/bear_mcp?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: never
+  ai:
+    mcp:
+      server:
+        version: 0.1.0
+        protocol: STREAMABLE
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+logging:
+  level:
+    root: INFO
+    com.bear.mcp.single: DEBUG
+    com.bear.mcp.single.core.mapper: WARN
+    org.mybatis: WARN
+    org.springframework.ai.mcp: INFO
+
+bear:
+  admin:
+    jwt-secret: ${BEAR_ADMIN_JWT_SECRET:}
+    jwt-expire-seconds: ${BEAR_ADMIN_JWT_EXPIRE_SECONDS:7200}
+  mcp:
+    demo-token: ${BEAR_MCP_DEMO_TOKEN:}
+  storage:
+    tos:
+      endpoint: ${BEAR_TOS_ENDPOINT:tos-cn-shanghai.volces.com}
+      public-endpoint: ${BEAR_TOS_PUBLIC_ENDPOINT:tos-cn-shanghai.volces.com}
+      region: ${BEAR_TOS_REGION:cn-shanghai}
+      bucket: ${BEAR_TOS_BUCKET:}
+      access-key: ${BEAR_TOS_ACCESS_KEY:}
+      secret-key: ${BEAR_TOS_SECRET_KEY:}
+      upload-expire-seconds: ${BEAR_TOS_UPLOAD_EXPIRE_SECONDS:600}
+  repository-command:
+    root: ${BEAR_REPOSITORY_ROOT:./repositories}
+    repositories:
+      yanque-admin: ${BEAR_YANQUE_ADMIN_REPOSITORY_DIRECTORY:YanQue-Admin}
+    timeout-seconds: ${BEAR_REPOSITORY_COMMAND_TIMEOUT_SECONDS:5}
+    max-output-lines: ${BEAR_REPOSITORY_COMMAND_MAX_OUTPUT_LINES:300}
+    max-output-bytes: ${BEAR_REPOSITORY_COMMAND_MAX_OUTPUT_BYTES:20000}
+
+yanque:
+  admin:
+    base-url: ${YANQUE_ADMIN_BASE_URL:http://127.0.0.1:8080}
+    shared-secret: ${YANQUE_BEAR_MCP_SHARED_SECRET:}
+
+feishu:
+  app-id: ${FEISHU_APP_ID:}
+  app-secret: ${FEISHU_APP_SECRET:}
+  token:
+    tenant-url: ${FEISHU_TENANT_TOKEN_URL:https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal}
+  mcp:
+    url: ${FEISHU_MCP_URL:https://mcp.feishu.cn/mcp}
+    # TAT 表示 Bear 用应用身份调用飞书 MCP。UAT 需要额外接用户 OAuth 授权流程。
+    credential-type: ${FEISHU_MCP_CREDENTIAL_TYPE:TAT}
+
+volcengine:
+  tls:
+    endpoint: ${VOLCENGINE_ENDPOINT:https://tls-cn-shanghai.volces.com}
+    region: ${VOLCENGINE_REGION:cn-shanghai}
+    access-key-id: ${VOLCENGINE_ACCESS_KEY_ID:}
+    access-key-secret: ${VOLCENGINE_ACCESS_KEY_SECRET:}
+    security-token: ${VOLCENGINE_TOKEN:}
+    topic-id: ${VOLCENGINE_TLS_TOPIC_ID:}
